@@ -53,6 +53,30 @@ public class TrainerDAO implements Closeable {
 		return trainers;
 	}
 
+	public int update(String name, int age, String specialism, int id) {
+		try (PreparedStatement stmnt = conn
+				.prepareStatement("UPDATE trainer SET name = ?, age = ?, specialism = ? WHERE id = ?");) {
+			stmnt.setString(1, name);
+			stmnt.setInt(2, age);
+			stmnt.setString(3, specialism);
+			stmnt.setInt(4, id);
+			return stmnt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
+	public int delete(int id) {
+		try (PreparedStatement stmnt = conn.prepareStatement("DELETE FROM trainer WHERE id = ?");) {
+			stmnt.setInt(1, id);
+			return stmnt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
 	@Override
 	public void close() throws IOException {
 		try {
