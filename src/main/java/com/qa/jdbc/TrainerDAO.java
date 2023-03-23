@@ -77,6 +77,15 @@ public class TrainerDAO implements Closeable {
 		return 0;
 	}
 
+	public int test() {
+		try (Statement stmnt = conn.createStatement();) {
+			return stmnt.executeUpdate("DROP TABLE jovi_test");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
 	@Override
 	public void close() throws IOException {
 		try {
